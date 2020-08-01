@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+#define mod 1000000007
+#define pb push_back
+#define in insert
+#define int long long
+#define pie 3.141592653589793238
+using namespace std;
+char arr[50][50];
+int  ff[50][50];
+using namespace std; 
+void solve(int cr,int cc,int r,int c,int time){
+	if(cr<0||cr>=r||cc<0||cc>=c||arr[cr][cc]=='W') return;
+	if(ff[cr][cc]!=-1 && time>=ff[cr][cc]) return;
+	ff[cr][cc]=time;
+	solve(cr-1,cc-1,r,c,time+1);
+	solve(cr-1,cc,r,c,time+1);
+	solve(cr-1,cc+1,r,c,time+1);
+	solve(cr,cc-1,r,c,time+1);
+	solve(cr,cc+1,r,c,time+1);
+	solve(cr+1,cc-1,r,c,time+1);
+	solve(cr+1,cc,r,c,time+1);
+	solve(cr+1,cc+1,r,c,time+1);
+}
+int32_t main(){
+		int r,c;
+		cin>>r>>c;
+		int i,j;
+		cin>>i>>j;
+		for(int i=0;i<r;i++){
+			for(int j=0;j<c;j++){
+				cin>>arr[i][j];
+				ff[i][j]=-1;
+			}
+		}
+		int maxx=0;
+		solve(i-1,j-1,r,c,1);
+		for(int i=0;i<r;i++){
+			for(int j=0;j<c;j++){
+				maxx = max(maxx,ff[i][j]);
+			}
+		}
+		cout<<maxx<<endl;
+} 
